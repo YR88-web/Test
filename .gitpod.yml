@@ -1,15 +1,10 @@
 image:
-  file: .gitpod.dockerfile
+  file: .gitpod.Dockerfile
 
-tasks:
-  - name: Setup MySQL Database
-    init: |
-      # Create a database if it doesn't exist
-      mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS my_database;"
-    command: |
-      # Set MySQL root password (if needed) -  This will be automatically set by Gitpod
-      # Ensure that your application can connect to the database.
-      # You might need to grant permissions to a specific user.
-      mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "CREATE USER IF NOT EXISTS 'app_user'@'localhost' IDENTIFIED BY 'app_password';"
-      mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "GRANT ALL PRIVILEGES ON my_database.* TO 'app_user'@'localhost';"
-      mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
+ports:
+  - name: application
+    port: 80
+    onOpen: open-preview
+  - name: database
+    port: 3306
+    onOpen: ignore # If you're running MySQL in a Docker container
