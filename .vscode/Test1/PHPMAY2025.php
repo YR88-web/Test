@@ -1,25 +1,15 @@
 <?php
-// Database configuration
-$host = 'localhost';
-$dbname = 'your_database_name';
-$username = 'your_username';
-$password = 'your_password';
+$servername = "localhost";
+$username = "app_user";
+$password = "app_password";
+$dbname = "my_database";
 
-try {
-    // Create a new PDO instance
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Query to fetch data from a table
-    $query = 'SELECT * FROM your_table_name';
-    $stmt = $pdo->query($query);
-
-    // Fetch and display the data
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        echo 'Row: ' . json_encode($row) . PHP_EOL;
-    }
-} catch (PDOException $e) {
-    // Handle connection errors
-    echo 'Connection failed: ' . $e->getMessage();
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
 }
+echo "Connected successfully";
 ?>
