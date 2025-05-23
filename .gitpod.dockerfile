@@ -1,23 +1,12 @@
-FROM gitpod/workspace-full:latest
+FROM php:8.1-fpm
 
-# Install PHP and MySQL extensions
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    php7.4-mysql \
-    php7.4-mbstring \
-    php7.4-curl \
-    php7.4-json
+# Install MySQL client and phpmyadmin
+RUN apt-get update && apt-get install -y mysql-client phpmyadmin
 
-# Optionally, install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Copy your project files here
+COPY . /var/www/html
 
-# Set the working directory
-WORKDIR /app
+RUN mysql -u root -p"your_root_password" -e "CREATE DATABASE your_database_name;"
+RUN mysql -u root -p"your_root_password" -e "GRANT ALL PRIVILEGES ON your_database_name.* TO 'your_username'@'localhost' IDENTIFIED BY 'your_password';"
+RUN mysql -u root -p"your_root_password" -e "FLUSH PRIVILEGES;"
 
-# Copy the project files
-COPY . .
-
-# Run any necessary build/setup commands
-# RUN composer install
-
-# Set the default command to run
-# CMD ["php", "-S", "0.0.0.0:80", "-t", "public"]

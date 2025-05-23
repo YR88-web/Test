@@ -1,28 +1,10 @@
-tasks:
-  - name: "Run PHPMyAdmin"
-    before: "apt-get update && apt-get install -y php7.4-mysql php7.4-mbstring php7.4-gd"
-    command: "php -S localhost:8000 -t ./public/"
-  - name: Install Apache
-    before: |
-      sudo apt-get update -y
-      sudo apt-get install apache2 -y
-  - name: Start Apache
-    command: |
-      sudo systemctl start apache2
-      sudo systemctl enable apache2
-    ports:
-      - port: 80
-        name: http
-      - port: 443
-        name: https
-
 image:
   file: .gitpod.Dockerfile
-
+vscode:
+  extensions:
+    - felixfbecker.php-debug # Add this for PHP debugging
 ports:
-  - name: application
-    port: 80
-    onOpen: open-preview
-  - name: database
-    port: 3306
-    onOpen: ignore # If you're running MySQL in a Docker container
+  - port: 80 # Web server port
+    onOpen: forward
+  - port: 3306 # MySQL port
+    onOpen: forward
