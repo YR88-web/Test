@@ -5,6 +5,6 @@ vscode:
     - felixfbecker.php-debug # Add this for PHP debugging
 ports:
   - port: 80 # Web server port
-    onOpen: forward
+    onOpen: "open-browser"
   - port: 3306 # MySQL port
-    onOpen: forward
+    onOpen: "open-browser"
