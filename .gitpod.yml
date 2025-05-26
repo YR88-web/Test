@@ -8,3 +8,19 @@ ports:
     onOpen: "open-browser"
   - port: 3306 # MySQL port
     onOpen: "open-browser"
+
+tasks:
+  - name: Install Gitpod CLI
+    command: |
+      # Check if the CLI is already installed (optional)
+      if ! command -v gp; then
+        echo "Installing Gitpod CLI..."
+        # Replace with the appropriate installation method for your setup
+        # Example using a package manager (e.g., apt):
+        sudo apt update && sudo apt install -y gitpod-cli
+        # or, for npm (if you're using a Node.js project):
+        npm install -g gitpod-cli
+        echo "Gitpod CLI installed."
+      else
+        echo "Gitpod CLI already installed."
+      fi
